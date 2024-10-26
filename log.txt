@@ -20,3 +20,4 @@ GET /  11:22:37 PM
 GET /login  11:22:42 PM
 GET /  11:23:14 PM
 GET /  11:23:21 PM
+GET /api/auth/al  4:45:40 PM
