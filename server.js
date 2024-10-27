@@ -25,7 +25,7 @@ app.use(
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/task", taskRouter);
 app.get("/", (req, res) => {
-  res.send("Hello World this is backend pro manager");
+  res.send("Hello Viewer, this is a server part of project - Pro Manager");
 });
 
 // Start server
