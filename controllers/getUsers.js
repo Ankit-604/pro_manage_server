@@ -1,3 +1,4 @@
+const { query } = require("express");
 const User = require("../models/User");
 
 const getUsers = async (req, res) => {
@@ -5,12 +6,10 @@ const getUsers = async (req, res) => {
     const { search } = req.query;
     const userId = req.userId;
 
-    // Create a case-insensitive regular expression for search
     const searchRegex = new RegExp(search, "i");
 
-    // Find users based on search query excluding the current user
     const users = await User.find({
-      $and: [{ email: searchRegex }, { _id: { $ne: userId } }],
+      $and: [{ email: query }, { _id: { $ne: userId } }],
     })
       .select("name email _id")
       .limit(10);

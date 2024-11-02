@@ -17,12 +17,10 @@ const updateTask = async (req, res) => {
       });
     }
 
-    // Initialize assignTo as an array if undefined
     if (!task.assignTo) {
       task.assignTo = [];
     }
 
-    // Update specific checklist item status
     if (itemId && checked !== undefined) {
       const updateResult = await Task.updateOne(
         { _id: taskId, "checklist.itemId": itemId },
@@ -43,7 +41,6 @@ const updateTask = async (req, res) => {
       });
     }
 
-    // Handle task assignment
     if (assignTo.length) {
       if (task.assignTo.includes(assignTo[0])) {
         return res.status(401).json({
@@ -62,7 +59,6 @@ const updateTask = async (req, res) => {
       updateFields.assignTo = [...task.assignTo, assignTo[0]];
     }
 
-    // Update other task fields if provided
     if (title) updateFields.title = title;
     if (priority) updateFields.priority = priority;
     if (dueDate) updateFields.dueDate = dueDate;

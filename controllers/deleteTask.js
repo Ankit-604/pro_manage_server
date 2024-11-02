@@ -5,7 +5,6 @@ const deleteTask = async (req, res) => {
     const { id } = req.params;
     const userId = req.userId;
 
-    // Find the task by ID
     const task = await Task.findById(id);
     if (!task) {
       return res.status(404).json({
@@ -14,7 +13,6 @@ const deleteTask = async (req, res) => {
       });
     }
 
-    // Ensure the task is created by the user making the request
     if (task.createdBy.toString() !== userId.toString()) {
       return res.status(403).json({
         success: false,
@@ -22,7 +20,6 @@ const deleteTask = async (req, res) => {
       });
     }
 
-    // Delete the task
     await task.deleteOne();
 
     return res.status(200).json({

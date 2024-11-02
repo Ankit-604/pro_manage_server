@@ -7,10 +7,8 @@ const taskRouter = require("./routes/taskRouter");
 
 const PORT = process.env.PORT || 8000;
 
-// Create Express app
 const app = express();
 
-// Middleware setup
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -21,20 +19,17 @@ app.use(
   })
 );
 
-// Route setup
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/task", taskRouter);
 app.get("/", (req, res) => {
   res.send("Hello Viewer, this is a server part of project - Pro Manager");
 });
 
-// Start server
 connectToDB();
 app.listen(PORT, () => {
   console.log(`Server is running on port localhost:${PORT}`);
 });
 
-/// Handle server errors
 app.on("error", (error) => {
   if (error.syscall !== "listen") {
     throw error;

@@ -1,14 +1,12 @@
 const { body, validationResult } = require("express-validator");
 
 const validateUpdateInput = async (req, res, next) => {
-  // Clean up request body
   for (let key in req.body) {
     if (!req.body[key]?.trim()) {
       delete req.body[key];
     }
   }
 
-  // Validate password fields
   const hasPassword = !!req.body.password;
   const hasNewPassword = !!req.body.newPassword;
 
@@ -26,7 +24,6 @@ const validateUpdateInput = async (req, res, next) => {
     });
   }
 
-  // Validate email
   await body("email")
     .optional()
     .isEmail()
@@ -34,7 +31,6 @@ const validateUpdateInput = async (req, res, next) => {
     .customSanitizer((value) => value.toLowerCase())
     .run(req);
 
-  // Validate password
   await body("password")
     .optional()
     .trim()
@@ -44,7 +40,6 @@ const validateUpdateInput = async (req, res, next) => {
     .withMessage("Password must be Alphanumeric!")
     .run(req);
 
-  // Validate new password
   await body("newPassword")
     .optional()
     .trim()
@@ -54,14 +49,12 @@ const validateUpdateInput = async (req, res, next) => {
     .withMessage("Password must be Alphanumeric!")
     .run(req);
 
-  // Validate name
   await body("name")
     .optional()
     .isLength({ min: 3 })
     .withMessage("Name must be at least 3 characters long")
     .run(req);
 
-  // Check validation results
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({

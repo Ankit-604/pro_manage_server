@@ -6,7 +6,7 @@ const generatingToken = (userId) => {
     jwt.sign(
       { id: userId },
       process.env.SECRET,
-      { expiresIn: "10d" },
+      { expiresIn: "30d" },
       (err, token) => {
         if (err) {
           console.error("Error generating token:", err);

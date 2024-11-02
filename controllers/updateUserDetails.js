@@ -17,7 +17,6 @@ const updateUserDetails = async (req, res) => {
 
     const { name, email, password, newPassword } = req.body;
 
-    // Check if new email already exists
     if (email && email !== user.email) {
       const findByEmail = await User.findOne({ email });
       if (findByEmail) {
@@ -28,7 +27,6 @@ const updateUserDetails = async (req, res) => {
       }
     }
 
-    // Verify current password before updating to a new one
     if (password && newPassword) {
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
@@ -40,7 +38,6 @@ const updateUserDetails = async (req, res) => {
       user.password = await bcrypt.hash(newPassword, 12);
     }
 
-    // Update user details
     if (name) user.name = name;
     if (email) user.email = email;
 

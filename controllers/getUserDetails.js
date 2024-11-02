@@ -6,7 +6,6 @@ const getUserDetails = async (req, res) => {
   try {
     const userId = req.userId;
 
-    // Retrieve user details by ID, excluding certain fields
     const user = await User.findById(userId).select("name email _id");
 
     if (!user) {

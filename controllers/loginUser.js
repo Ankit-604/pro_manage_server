@@ -6,7 +6,6 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Check if user exists by email
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({
@@ -15,7 +14,6 @@ const loginUser = async (req, res) => {
       });
     }
 
-    // Compare provided password with stored hash
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({
@@ -24,7 +22,6 @@ const loginUser = async (req, res) => {
       });
     }
 
-    // Generate JWT token
     const token = await generatingToken(user._id);
 
     return res.status(200).json({

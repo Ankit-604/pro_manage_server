@@ -89,15 +89,15 @@ const validateUpdateTask = async (req, res, next) => {
         const itemIdStr = String(item.itemId).trim();
         if (!itemIdStr || itemIdStr === "" || /^[^a-zA-Z0-9]/.test(itemIdStr)) {
           throw new Error(
-            "Checklist items must have valid IDs and must not start with special characters"
+            "Checklist items must have valid IDs and must not start with special characters."
           );
         }
         if (idSet.has(item.itemId)) {
-          throw new Error("Checklist item IDs must be unique within the task");
+          throw new Error("Checklist item IDs must be unique within the task.");
         }
         idSet.add(item.itemId);
         if (!item.text || item.text.trim() === "") {
-          throw new Error("Checklist items must have text");
+          throw new Error("Checklist items must have text.");
         }
       });
       return true;
@@ -112,26 +112,26 @@ const validateUpdateTask = async (req, res, next) => {
       let assignToId;
       if (typeof assignTo === "string") {
         if (!mongoose.Types.ObjectId.isValid(assignTo)) {
-          throw new Error("Please provide a valid user ID");
+          throw new Error("Please provide a valid user ID.");
         }
         if (assignTo === creatorId) {
-          throw new Error("You cannot assign the task to yourself");
+          throw new Error("You cannot assign the task to yourself.");
         }
         assignToId = assignTo;
       } else if (Array.isArray(assignTo)) {
         if (assignTo.length > 1) {
-          throw new Error("Only one assignee can be assigned at a time");
+          throw new Error("Only one assignee can be assigned at a time.");
         }
         if (!mongoose.Types.ObjectId.isValid(assignTo[0])) {
-          throw new Error("Please provide a valid user ID");
+          throw new Error("Please provide a valid user ID.");
         }
         if (assignTo[0] === creatorId) {
-          throw new Error("You cannot assign the task to yourself");
+          throw new Error("You cannot assign the task to yourself.");
         }
         assignToId = assignTo[0];
       } else {
         throw new Error(
-          "AssignTo must be a string or an array containing one ID"
+          "AssignTo must be a string or an array containing one ID."
         );
       }
       req.assignTo = assignToId;

@@ -5,7 +5,6 @@ const getTask = async (req, res) => {
   try {
     const { taskId } = req.params;
 
-    // Validate taskId
     if (!mongoose.Types.ObjectId.isValid(taskId)) {
       return res.status(400).json({
         error: true,
@@ -13,7 +12,6 @@ const getTask = async (req, res) => {
       });
     }
 
-    // Fetch task by ID
     const task = await Task.findById(taskId).select(
       "priority title checklist dueDate -_id"
     );
